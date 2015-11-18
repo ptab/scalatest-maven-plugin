@@ -1,24 +1,17 @@
 package org.scalatest.tools.maven;
 
-import static org.scalatest.tools.maven.MojoUtils.concat;
-import static org.scalatest.tools.maven.MojoUtils.fileRelativeTo;
-import static org.scalatest.tools.maven.MojoUtils.reporterArg;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
-
+import org.codehaus.doxia.sink.Sink;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.reporting.MavenReport;
 import org.apache.maven.reporting.MavenReportException;
-import org.codehaus.doxia.sink.Sink;
+
+import java.io.*;
+import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
+import static org.scalatest.tools.maven.MojoUtils.*;
 
 /**
  * A reporting mojo to capture the ScalaTest output as a file that integrates into the Maven site of a project.
@@ -35,7 +28,7 @@ public class ReporterMojo extends AbstractScalaTestMojo implements MavenReport {
     /**
      * Directory where reports will go.
      *
-     * @property property="project.reporting.outputDirectory"
+     * @parameter expression="${project.reporting.outputDirectory}"
      * @required
      * @readonly
      */
@@ -44,7 +37,7 @@ public class ReporterMojo extends AbstractScalaTestMojo implements MavenReport {
     /**
      * Consists of an optional configuration parameters for the file reporter.
      * For more info on configuring reporters, see the ScalaTest documentation.
-     * @property property="fileReporterOptions"
+     * @parameter expression="${fileReporterOptions}"
      */
     private String fileReporterOptions;
 
